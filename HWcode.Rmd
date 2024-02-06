@@ -56,14 +56,13 @@ data <- data %>%
 
 data <- data %>%
   mutate(Social.ST.min = sapply(Social.ST, convert_min))
-
 ```
 
 # Problem 1
 
 ## (a)
 
-The purpose of this data collection is to explore the potential association between screen time and poor mental health among college students. Existing research indicates that increased screen time may inversely affect physical activity levels, illustrating that higher screen time is associated with reduced exercise time among adolescents [@1]. Additionally, excessive screen time has been linked to reduced sleep quality, which is a factor critical for cognitive function and overall well-being [@2]. Given the importance of both physical activity and sleep to mental health [@3] [@4], there is a compelling need to investigate how screen time contributes to mental health challenges. By collecting and analyzing screen activity data, we aim to identify patterns that may suggest a relationship between screen usage and indicators of poor mental health among graduate students.
+The purpose of this data collection is to explore the potential relationship between the duration of screen use and the consistency of sleep patterns. Prior research has established a correlation between excessive screen time and diminished sleep quality [@1]. Moreover, a study showed that sleep health and the regularity of one's sleep schedule are highly related [@2]. Given these connections, it is reasonable to suggest that screen time may indirectly affect sleep health by altering the consistency of sleep schedules. Additionally, wake-up times are reflective of one's overall sleep schedule, as evidence indicates individuals with earlier bedtimes also tend to experience earlier wake-up times [@3]. This suggests that the consistency of wake-up times can reflect the consistency of overall sleep habits. Within the scope of our study, the timing of the first phone pickup of the day can serve as an indicator for wake-up time. The research aims to investigate how screen time influences sleep schedules, potentially offering insights into broader implications for sleep quality and mental health.
 
 ## (b)
 
@@ -75,7 +74,7 @@ The Informed Consent Form serves as a formal communication tool between the rese
 |------------------------------------|------------------------------------|
 | Variables              | Total screen time (Total.ST), social screen time (Social.ST), total pickups (Pickups), and first pickup time (Pickup.1st) |
 | Data source            | The recorded screen activity in real-time by the personal mobile device                                                   |
-| Total counts           | 14 days (1/14/24 - 1/27/24)                                                                                               |
+| Total counts           | 13 days (1/14/24 - 1/26/24)                                                                                               |
 | Mobile device settings | The time zone was adjusted to GMT-8 to collect the first pickup time.                                                     |
 
 : Data Collection Plan
@@ -194,7 +193,7 @@ ggpairs(data, columns = c("Total.ST.min", "Social.ST.min", "Pickups", "Daily.pro
                          "Duration/use")) + theme_bw()
 ```
 
-The positive correlation between social screen time and the total screen time is the highest, with the Pearson correlation equal to 0.824. The positive correlations between the duration and total time, the proportion of social screen time and social screen time, as well as the duration and social screen time, are also significant. At the same time, there are significantly negative correlations between total pickups and total time, total pickups and social screen time, the proportion of social screen time and total pickups, as well as the duration and total pickups.
+The positive correlation between social screen time and the total screen time is the highest, with the Pearson correlation equal to 0.827. The positive correlations between the duration and total time, the proportion of social screen time and social screen time, as well as the duration and social screen time, are also significant. At the same time, there are significantly negative correlations between total pickups and total time, total pickups and social screen time, as well as the duration and total pickups.
 
 ## (c)
 
@@ -228,7 +227,7 @@ ggplot(occupation_df, aes(x = Vector_Magnitude, y = Probability)) +
 
 ### Occupation time curve of social screen time
 
-The probability drops quickly as the social screen time increases when below 150. This suggests that most data points are clustered at lower values of social screen time, indicating that days with a very long social screen time (above 150) are less common.
+The probability drops more quickly as the social screen time increases below 150. This suggests that most data points are clustered at lower values of social screen time, indicating that days with a very long social screen time (above 150) are less common.
 
 ```{r}
 # Sort the data from smallest to largest
@@ -256,7 +255,7 @@ ggplot(df_ss, aes(x = Vector_Magnitude, y = Probability)) +
 
 ### Occupation time curve of total pickups
 
-The probability drops relatively quickly as the number of total pickups increases but below 600. This suggests that most data points are clustered at lower values (below 600) of total pickups, indicating that days with a very high number of pickups are less common.
+The probability drops quickly as the number of total pickups increases but below 600. This suggests that most data points are clustered at lower values (below 600) of total pickups, indicating that days with a very high number of pickups are less common. Particularly, the probability dropes the most quickly between 100 to 150, meaning that pickup times in this range are more common.
 
 ```{r}
 # Sort the data from smallest to largest
@@ -284,7 +283,7 @@ ggplot(df_pu, aes(x = Vector_Magnitude, y = Probability)) +
 
 ### Occupation time curve of proportions of social screen time
 
-There is no sharp decline in probability with increased proportion of screen time. This could suggest a more varied usage pattern in social screen time proportion.
+There is no sharp decline in probability with increased proportion of screen time. This could suggest a more varied usage pattern in social screen time proportion. However, proportion below 0.5 is less common.
 
 ```{r}
 # Sort the data from smallest to largest
@@ -312,7 +311,7 @@ ggplot(df_ss_prop, aes(x = Vector_Magnitude, y = Probability)) +
 
 ### Occupation time curve of daily duration
 
-The probability drops quickly as the duration increases below 20. This suggests that most data points are clustered at shorter duration (below 20), indicating that days with a very high duration are less common.
+The probability drops quickly as the duration increases but below 15. This suggests that most data points are clustered at shorter duration (below 15), indicating that days with a very high duration are less common.
 
 ```{r}
 # Sort the data from smallest to largest
@@ -383,7 +382,7 @@ data = data %>%
 
 ## (b)
 
-The initial phone usage typically occurs between 7 and 8 in the morning. There are occasional first pickups noted between 9 and 11 a.m., with an outlier around 5 a.m. This pattern suggests that the individual generally tends to start their day early, with some fluctuations in their morning routine.
+The initial phone usage typically occurs between 7 and 8 in the morning. There are occasional first pickups noted between 9 and 10:30 a.m., with an outlier around 5:30 a.m. This pattern suggests that the individual generally tends to start their day early, with some fluctuations in their morning routine.
 
 ```{r}
 pickup_c = circular(data$Pickup.1st.agl, units = "degrees", template = "clock24")
@@ -426,7 +425,7 @@ print(lambda)
 ```{r}
 # Create dummy variables
 data$Xt <- as.numeric(!weekdays(data$Date) %in% c("Saturday", "Sunday"))
-data$Zt <- as.numeric(data$Date >= as.Date("2021-01-16"))
+data$Zt <- as.numeric(data$Date >= as.Date("2024-01-16"))
 ```
 
 ```{r}
@@ -439,11 +438,11 @@ summary(model2)
 
 ### c.1
 
-Since the p-value is larger than 0.05, there's no enough evidence to reject the null hypothesis that there is no difference in the number of pickups between weekdays and weekends at the 5% significance level. Therefore, there is no enough evidence to conclude that there is a significant difference in the number of pickups between weekdays and weekends.
+Since the p-value is larger than 0.05 (0.151), there's no enough evidence to reject the null hypothesis that there is no difference in the number of pickups between weekdays and weekends at the 5% significance level. Therefore, there is no enough evidence to conclude that there is a significant difference in the number of pickups between weekdays and weekends.
 
 ### c.2
 
-Since the p-value is less than 0.05, there is enough evidence to reject the null hypothesis that there is no significant change in the behavior of daily pickups after the winter semester began. Therefore, we have enough evidence to support that there is significant change in the behavior of daily pickups after the winter semester began
+Since the p-value is less than 0.05 (\<2e-16), there is enough evidence to reject the null hypothesis that there is no significant change in the behavior of daily pickups after the winter semester began. Therefore, we have enough evidence to support that there is significant change in the behavior of daily pickups after the winter semester began.
 
 # Problem 5
 
