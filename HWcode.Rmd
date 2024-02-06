@@ -204,7 +204,7 @@ There is no sharp decline in probability with increased screen time. This could 
 
 ```{r}
 # Sort the data from smallest to largest
-sorted_st <- sort(data$Total.ST.min, decreasing = TRUE)
+sorted_st <- sort(data$Total.ST.min, decreasing = F)
 
 # Generate a table of the frequencies of each value
 value_counts <- table(sorted_st)
@@ -232,7 +232,7 @@ The probability drops quickly as the social screen time increases when below 150
 
 ```{r}
 # Sort the data from smallest to largest
-sorted_ss <- sort(data$Social.ST.min, decreasing = TRUE)
+sorted_ss <- sort(data$Social.ST.min, decreasing = F)
 
 # Generate a table of the frequencies of each value
 value_counts_ss <- table(sorted_ss)
@@ -260,7 +260,7 @@ The probability drops relatively quickly as the number of total pickups increase
 
 ```{r}
 # Sort the data from smallest to largest
-sorted_pu <- sort(data$Pickups, decreasing = TRUE)
+sorted_pu <- sort(data$Pickups, decreasing = F)
 
 # Generate a table of the frequencies of each value
 value_counts_pu <- table(sorted_pu)
@@ -288,7 +288,7 @@ There is no sharp decline in probability with increased proportion of screen tim
 
 ```{r}
 # Sort the data from smallest to largest
-sorted_ss_prop <- sort(data$Daily.prop.social, decreasing = TRUE)
+sorted_ss_prop <- sort(data$Daily.prop.social, decreasing = F)
 
 # Generate a table of the frequencies of each value
 value_counts_ss_prop <- table(sorted_ss_prop)
@@ -316,7 +316,7 @@ The probability drops quickly as the duration increases below 20. This suggests 
 
 ```{r}
 # Sort the data from smallest to largest
-sorted_dura <- sort(data$Daily.duration, decreasing = TRUE)
+sorted_dura <- sort(data$Daily.duration, decreasing = F)
 
 # Generate a table of the frequencies of each value
 value_counts_dura <- table(sorted_dura)
